@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            width: 70%;
+            font-size: 1em;
+            text-align: center;
+        }
+        .search-box button {
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            background: #fff;
+            color: #0072ff;
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+        .search-box button:hover {
+            background: #0072ff;
+            color: #fff;
+        }
+        .weather-info {
+            margin-top: 20px;
+        }
+        .weather-info h2 {
+            font-size: 1.8em;
+        }
+        .weather-icon {
+            font-size: 4em;
+            margin: 10px 0;
+        }
+        .details {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Weather App</h1>
+        <form method="post" class="search-box">
+            {% csrf_token %}
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+
+        {% if temp and country_code and coordinate and humidity %}
+            <div class="weather-info">
+                <h2>{{ weather_data.city }}</h2>
+                <i class="fas fa-cloud weather-icon"></i>
+                <p class="details">🌡 Temperature: {{ temp }}°C</p>
+                <p class="details">☁ Country Code : {{ country_code }}</p>
+                <p class="details">💧 coordiantes: {{ coordinate }}%</p>
+                <p class="details">💨 Humidity: {{ humidity }} m/s</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
